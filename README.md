@@ -1,11 +1,10 @@
-Zend Framework 2 Tutorial
-=========================
+Zend Framework 2 Tutorial Application
+=====================================
 
 Introduction
 ------------
-This tutorial is intended to give an introduction to using Zend Framework 2 by creating a simple database driven
-application using the Model-View-Controller paradigm.
-
+This is a simple database driven application using the Model-View-Controller paradigm intended to give an
+introduction to using Zend Framework 2.
 
 Installation
 ------------

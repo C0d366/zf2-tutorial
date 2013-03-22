@@ -65,3 +65,15 @@ to create the album table with some data in it.
     ('Bruce  Springsteen',  'Wrecking Ball (Deluxe)'),
     ('Lana  Del  Rey',  'Born  To  Die'),
     ('Gotye',  'Making  Mirrors');
+
+local.php
+---------
+Put your database credentials in config/autoload/local.php so that they are not in the git repository (as local.php is ignored):
+
+    <?php
+    return array(
+        'db' => array(
+            'username' => 'YOUR USERNAME HERE',
+            'password' => 'YOUR PASSWORD HERE',
+        )
+    );

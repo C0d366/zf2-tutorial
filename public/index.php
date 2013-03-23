@@ -5,6 +5,9 @@
  */
 chdir(dirname(__DIR__));
 
+// Setup Zend Developer Tools
+define('REQUEST_MICROTIME', microtime(true));
+
 // Setup autoloading
 require 'init_autoloader.php';
 

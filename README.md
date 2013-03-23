@@ -45,6 +45,18 @@ The website can then be accessed using http://zf2-tutorial.localhost.
 
 Restart your web server.
 
+Zend Developer Tools
+--------------------
+Add the `ZendDeveloperTools` module to the module section of your `application.config.php`.
+
+Copy distributed local settings and change them if you like to.
+
+    cp vendor/zendframework/zend-developer-tools/config/zenddevelopertools.local.php.dist config/autoload/zenddevelopertools.local.php
+
+Add the following to your `index.php`:
+
+    define('REQUEST_MICROTIME', microtime(true));
+
 Database
 --------
 We are going to use MySQL, via PHP's PDO driver, so create a database called zf2tutorial, and run these SQL statements

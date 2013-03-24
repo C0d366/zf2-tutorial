@@ -4,7 +4,7 @@ Zend Framework 2 Tutorial Application
 Introduction
 ------------
 This is a simple database driven application using the Model-View-Controller paradigm intended to give an
-introduction to using Zend Framework 2.
+example on how to use Zend Framework 2 and Doctrine 2.
 
 Installation
 ------------
@@ -17,13 +17,13 @@ and manually invoke `composer` using the shipped `composer.phar`:
     php composer.phar self-update
     php composer.phar install
 
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
+(The `self-update` directive is to ensure you have an up-to-date `composer.phar` available.)
+
+Take a look at the `composer.json`.
 
 Virtual Host
 ------------
-Afterwards, set up a virtual host to point to the public/ directory of the
-project and you should be ready to go!
+Afterwards, set up a virtual host to point to the public/ directory of the project.
 
     <VirtualHost *:80>
         ServerName zf2-tutorial.localhost
@@ -39,7 +39,8 @@ project and you should be ready to go!
 
 Make sure that you update your /etc/hosts or c:\windows\system32\drivers\etc\hosts file so that zf2-tutorial.localhost
 is mapped to 127.0.0.1.
-The website can then be accessed using http://zf2-tutorial.localhost.
+
+The website can then be accessed using http://zf2-tutorial.localhost
 
     127.0.0.1   zf2-tutorial.localhost localhost
 
@@ -47,27 +48,53 @@ Restart your web server.
 
 Zend Developer Tools
 --------------------
-Add the `ZendDeveloperTools` module to the module section of your `application.config.php`.
+Note the `ZendDeveloperTools` module added to the module section of the `application.config.php`.
 
-Copy distributed local settings and change them if you like to.
-
-    cp vendor/zendframework/zend-developer-tools/config/zenddevelopertools.local.php.dist config/autoload/zenddevelopertools.local.php
-
-Add the following to your `index.php`:
+Note the following line added to the `index.php`:
 
     define('REQUEST_MICROTIME', microtime(true));
 
+Copy distributed local settings and change them if you like to:
+
+    cp vendor/zendframework/zend-developer-tools/config/zenddevelopertools.local.php.dist config/autoload/zenddevelopertools.local.php
+
 Database
 --------
-We are going to use MySQL, via PHP's PDO driver, so create a database called zf2tutorial, and run these SQL statements
-to create the album table with some data in it.
+We are going to use MySQL via Doctrine 2 ORM.
 
-    CREATE TABLE album (
-        id int(11) NOT NULL auto_increment,
-        artist varchar(100) NOT NULL,
-        title varchar(100) NOT NULL,
-        PRIMARY KEY (id)
+Note the `DoctrineModule` and `DoctrineORMModule` modules added to the module section of the `application.config.php`.
+
+Put your database credentials in config/autoload/doctrine.local.php so that they are not in the git repository
+(as *.local.php is ignored):
+
+    <?php
+
+    return array(
+        'doctrine' => array(
+            'connection' => array(
+                'orm_default' => array(
+                    'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                    'params' => array(
+                        'host' => 'localhost',
+                        'port' => '3306',
+                        'user' => 'username',
+                        'password' => 'password',
+                        'dbname' => 'database',
+                    )
+                )
+            )
+        )
     );
+
+Now create the `album` table via command line tool:
+
+    ./vendor/bin/doctrine-module orm:schema-tool:create
+
+Validate:
+
+    ./vendor/bin/doctrine-module orm:validate-schema
+
+Run this SQL statement to put some data into it:
 
     INSERT INTO album (artist, title)
     VALUES
@@ -76,15 +103,3 @@ to create the album table with some data in it.
     ('Bruce  Springsteen',  'Wrecking Ball (Deluxe)'),
     ('Lana  Del  Rey',  'Born  To  Die'),
     ('Gotye',  'Making  Mirrors');
-
-local.php
----------
-Put your database credentials in config/autoload/local.php so that they are not in the git repository (as local.php is ignored):
-
-    <?php
-    return array(
-        'db' => array(
-            'username' => 'YOUR USERNAME HERE',
-            'password' => 'YOUR PASSWORD HERE',
-        )
-    );

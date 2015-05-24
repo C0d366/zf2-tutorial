@@ -1,7 +1,7 @@
 {
     "name": "C0d366/zf2-tutorial",
     "description": "Zend Framework 2 Tutorial Application",
-    "license": "BSD-3-Clause",
+    "license": "GPL-3.0",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.1.*",
